@@ -1,6 +1,3 @@
-"""
-This module takes care of starting the API Server, Loading the DB and Adding the endpoints
-"""
 import os
 from flask import Flask, request, jsonify, url_for
 from flask_migrate import Migrate
@@ -8,7 +5,7 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
-from models import db, User, People, Planets, Vehicles
+from models import db, User, People, Planets
 #from models import Person
 
 app = Flask(__name__)
@@ -46,6 +43,17 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+
+@app.route('/user/favorites', methods= ['GET'])
+def get_user_favorites():
+    return jsonify({
+        "favorites": {
+            "people":{"id":{propiedades}, "id":{propiedades}},
+            "planets":{"id":{propiedades}}
+        }
+    })
+
+
 @app.route('/people', methods= ['GET'])
 def get_people():
     return jsonify({
@@ -60,26 +68,54 @@ def get_planets():
         "planets": []
     })
 
-@app.route('/vehicles', methods= ['GET'])
-def get_vehicles():
-    return jsonify({
-        "mensaje": "todos los vehiculos",
-        "vehicles": []
-    })
 
 @app.route('/people/<int:people_id>', methods= ['GET'])
-def get_people():
+def get_one_people(people_id):
+    personaje = people[people_id]
+#     thisdict =	{
+#   "brand": "Ford",
+#   "model": "Mustang",
+#   "year": 1964
+# }
+# people_Id = thisdict.get("model")
+# print(people_Id) me deberia devolver el diccionario de propiedades de cada personaje
+
+#   dentro del diccionario principal acceder a cada diccionario de propiedades/personaje por su key/id
     return jsonify({
-        "aqui ira la funcion para traer un personaje segun su posision": "get an element from a list by position"
+        "aqui ira la funcion para traer un personaje segun su posision": "get an element from a list by position",
     })
 
-@app.route('/planets/<int:planets_id>', methods= ['GET'])
-def get_planets():
+@app.route('/planets/<int:planet_id>', methods= ['GET'])
+def get_one_planet():
     return jsonify({
         "aqui ira la funcion para traer un planeta segun su posision": "get an element from a list by position"
     })
 
 
+@app.route('/favorite/planet/<int:planet_id>', methods= ['POST'])
+def add_new_planet_to_current_user_favs():
+    return jsonify({
+        "aqui ira la funcion POST para ": "Add a new favorite planet to the current user with the planet id = planet_id."
+    })
+
+@app.route('/favorite/people/<int:planet_id>', methods= ['POST'])
+def add_new_people_to_current_user_favs():
+    return jsonify({
+        "aqui ira la funcion POST para ": "Add a new favorite people to the current user with the planet id = planet_id."
+    })
+
+@app.route('/favorite/planet/<int:planet_id>', methods= ['DELETE'])
+def delete_favorite_planet():
+    return jsonify({
+        "aqui ira la funcion DELETE para ": "Delete favorite planet with the id = planet_id."
+    })
+
+@app.route('/favorite/planet/<int:planet_id>', methods= ['DELETE'])
+def delete_favorite_people(planet_id):
+    del favorite.planet[planet_id]
+    return jsonify({
+        "aqui ira la funcion DELETE para ": "Delete favorite planet with the id = planet_id."
+    })
 
 
 
