@@ -46,20 +46,6 @@ class People(db.Model):
     #desde swapi tech cada personaje tiene su url pero no su uid ese viene con el primer fetch... ponerlo o no?
 
 
-class Vehicles(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
-    model = db.Column(db.String(250))
-    vehicle_class = db.Column(db.String(250))
-    passengers = db.Column(db.Integer)
-    pilots = db.Column(db.String(250))
-    url = db.Column(db.String(250), unique=True, nullable=False)
-    # favoritos_id = Column(Integer, ForeignKey('favoritos.id'))
-    # favoritos = relationship(Favoritos)
-    # people_id = Column(Integer, ForeignKey('people.id'))
-    # people = relationship(People)
-
-
 class Planets(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     name = db.Column(db.String(250), unique=True, nullable=False)

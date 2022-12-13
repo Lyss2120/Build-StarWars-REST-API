@@ -8,7 +8,7 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
-from models import db, User
+from models import db, User, People, Planets, Vehicles
 #from models import Person
 
 app = Flask(__name__)
@@ -53,11 +53,31 @@ def get_people():
         "people": []
     })
 
+@app.route('/planets', methods= ['GET'])
+def get_planets():
+    return jsonify({
+        "mensaje": "todos los planetas",
+        "planets": []
+    })
 
+@app.route('/vehicles', methods= ['GET'])
+def get_vehicles():
+    return jsonify({
+        "mensaje": "todos los vehiculos",
+        "vehicles": []
+    })
 
+@app.route('/people/<int:people_id>', methods= ['GET'])
+def get_people():
+    return jsonify({
+        "aqui ira la funcion para traer un personaje segun su posision": "get an element from a list by position"
+    })
 
-
-
+@app.route('/planets/<int:planets_id>', methods= ['GET'])
+def get_planets():
+    return jsonify({
+        "aqui ira la funcion para traer un planeta segun su posision": "get an element from a list by position"
+    })
 
 
 
