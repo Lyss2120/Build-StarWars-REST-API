@@ -19,18 +19,10 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class Favoritos(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
-    uid = db.Column(db.String(10), unique=True, nullable=False)
-    url = db.Column(db.String(120), unique=True, nullable=False)
-    # user_id = Column(Integer, ForeignKey('user.id'))
-    # user = relationship(User)  como??
-
-
 class People(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
+    uid = db.Column(db.Integer, unique=True, nullable=False)
     height = db.Column(db.Integer)
     mass = db.Column(db.Integer)
     hair_color = db.Column(db.String(250))
@@ -48,6 +40,7 @@ class People(db.Model):
 
 class Planets(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
+    uid = db.Column(db.Integer, unique=True, nullable=False)
     name = db.Column(db.String(250), unique=True, nullable=False)
     rotation_period = db.Column(db.Integer)
     orbital_period = db.Column(db.Integer)
@@ -57,3 +50,12 @@ class Planets(db.Model):
     url = db.Column(db.String(250), unique=True, nullable=False)
     # favoritos_id = db.Column(db.Integer, ForeignKey('favoritos.id'))
     # favoritos = relationship(Favoritos)
+
+class Favoritos(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user = db.Column(db.String(120), db.ForeignKey('user.email'))
+    people = db.Column(db.Integer, db.ForeignKey('people.uid'))
+    planets = db.Column(db.Integer, db.ForeignKey('planets.uid'))
+    user_rel = db.relationship('User')
+    people_rel = db.relationship('People')  
+    planets_rel = db.relationship('Planets')  
